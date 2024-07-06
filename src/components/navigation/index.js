@@ -1,17 +1,40 @@
 import React from 'react';
-import SideNavigation from '@cloudscape-design/components/side-navigation';
+import TopNavigation from '@cloudscape-design/components/top-navigation';
+import AppLayout from '@cloudscape-design/components/app-layout';
+import Navigation from './components/navigation';
+import Breadcrumbs from './components/breadcrumbs';
 
-const items = [
-  { type: 'link', text: 'Demos', href: '/home/index.html' },
-];
+import './styles.css';
 
-export default function Navigation() {
+export default function App() {
   return (
     <>
-      <SideNavigation
-        activeHref={window.location.pathname}
-        header={{ href: '/home/index.html', text: 'Service' }}
-        items={items}
+      <div id="top-nav">
+        <TopNavigation
+          identity={{
+            logo: { src: '/rocket.png', alt: 'Rocket' },
+            title: 'Demo Launcher',
+            href: '/home/index.html',
+          }}
+          i18nStrings={{
+            overflowMenuTriggerText: 'More',
+            overflowMenuTitleText: 'All',
+          }}
+        />
+      </div>
+      <AppLayout
+        headerSelector="#top-nav"
+        ariaLabels={{
+          navigation: 'Navigation drawer',
+          navigationClose: 'Close navigation drawer',
+          navigationToggle: 'Open navigation drawer',
+          notifications: 'Notifications',
+          tools: 'Help panel',
+          toolsClose: 'Close help panel',
+          toolsToggle: 'Open help panel',
+        }}
+        breadcrumbs={<Breadcrumbs />}
+        navigation={<Navigation />}
       />
     </>
   );
