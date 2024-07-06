@@ -1,58 +1,41 @@
-import { useState } from "react";
-import {
-  AppLayout,
-  Button,
-  Container,
-  FormField,
-  Header,
-  Input,
-  Link,
-  SpaceBetween
-} from "@cloudscape-design/components";
+import React from 'react';
+import TopNavigation from '@cloudscape-design/components/top-navigation';
+import AppLayout from '@cloudscape-design/components/app-layout';
+import Navigation from './components/navigation';
+import Breadcrumbs from './components/breadcrumbs';
 
-/*
- * Learn more about Cloudscape Design System at
- * https://cloudscape.design
- */
+import './styles.css';
+
 export default function App() {
-  const [value, setValue] = useState("");
-
   return (
-    <AppLayout
-      toolsHide={true}
-      navigationHide={true}
-      contentHeader={
-        <Header
-          variant="h1"
-          description={
-            <>
-              This React app uses Cloudscape components. Learn more in{" "}
-              <Link
-                href="https://cloudscape.design"
-                external
-                externalIconAriaLabel="Opens in a new tab"
-              >
-                the official documentation.
-              </Link>
-            </>
-          }
-        >
-          Hello from Cloudscape Design System
-        </Header>
-      }
-      content={
-        <Container>
-          <SpaceBetween size="s">
-            <FormField label="Start editing to see some magic happen">
-              <Input
-                value={value}
-                onChange={(event) => setValue(event.detail.value)}
-              />
-            </FormField>
-            <Button variant="primary">Click me</Button>
-          </SpaceBetween>
-        </Container>
-      }
-    />
+    <>
+      <div id="top-nav">
+        <TopNavigation
+          identity={{
+            logo: { src: '/rocket.png', alt: 'Rocket' },
+            title: 'Demo Launcher',
+            href: '/home/index.html',
+          }}
+          i18nStrings={{
+            overflowMenuTriggerText: 'More',
+            overflowMenuTitleText: 'All',
+          }}
+        />
+      </div>
+      <AppLayout
+        headerSelector="#top-nav"
+        ariaLabels={{
+          navigation: 'Navigation drawer',
+          navigationClose: 'Close navigation drawer',
+          navigationToggle: 'Open navigation drawer',
+          notifications: 'Notifications',
+          tools: 'Help panel',
+          toolsClose: 'Close help panel',
+          toolsToggle: 'Open help panel',
+        }}
+        breadcrumbs={<Breadcrumbs />}
+        navigation={<Navigation />}
+      />
+    </>
   );
 }
