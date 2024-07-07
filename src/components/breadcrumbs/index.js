@@ -1,10 +1,18 @@
-import React from 'react';
-import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
+import * as React from "react";
+import BreadcrumbGroup from "@cloudscape-design/components/breadcrumb-group";
 
-const items = [{ text: 'Demo Launcher', href: '/home/index.html' }];
-
-// Create the Breadcrumbs component
-export default function Breadcrumbs({ active }) {
-  // Return the BreadcrumbGroup with the items and active item
-  return <BreadcrumbGroup items={[...items, active]} />;
+export default () => {
+  return (
+    <BreadcrumbGroup
+      items={[
+        { text: "System", href: "#" },
+        { text: "Components", href: "#components" },
+        {
+          text: "Breadcrumb group",
+          href: "#components/breadcrumb-group"
+        }
+      ]}
+      ariaLabel="Breadcrumbs"
+    />
+  );
 }
