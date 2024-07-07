@@ -3,7 +3,6 @@ import TopNavigation from '@cloudscape-design/components/top-navigation';
 import AppLayout from '@cloudscape-design/components/app-layout';
 import Navigation from './components/navigation';
 import Breadcrumbs from './components/breadcrumbs';
-
 import './styles.css';
 
 export default function App() {
