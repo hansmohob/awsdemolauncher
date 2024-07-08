@@ -2,7 +2,7 @@
 FROM node:20
 
 # Set the working directory in the container
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy package.json and package-lock.json (if available) to the working directory
 COPY package*.json ./
@@ -11,10 +11,8 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the application code to the working directory
-COPY . .
-
-# Build React app
-RUN npm run build
+COPY server.js ./
+COPY build ./build
 
 # Expose the port on which the application runs
 EXPOSE 3000
