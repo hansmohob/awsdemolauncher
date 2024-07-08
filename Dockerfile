@@ -1,10 +1,24 @@
 # Use an official Node.js runtime as a parent image
 FROM node:20
 
+# Install Terraform [https://developer.hashicorp.com/terraform/install]
+RUN apt-get update && \
+    apt-get install -y \
+    gnupg \
+    lsb-release \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN wget -qO- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list \
+    && apt-get update \
+    && apt-get install -y terraform \
+    && rm -rf /var/lib/apt/lists/*
+
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if available) to the working directory
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
 # Install Node.js dependencies
