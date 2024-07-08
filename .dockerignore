@@ -1,0 +1,6 @@
+# TODO: Update when repo is finalized
+node_modules
+npm-debug.log
+.dockerignore
+.git
+README.md
