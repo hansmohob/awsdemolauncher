@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Initialize Terraform
-cd /mnt/efs/terraform/tfdeployed
+cd /mnt/efs/demol/terraform/tfdeployed
 terraform init -input=false \
     -backend-config="bucket=${TF_STATE_BUCKET_NAME}" \
     -backend-config="key=${TF_STATE_BUCKET_KEY}" \
