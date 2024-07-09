@@ -22,17 +22,6 @@ RUN wget -qO- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/sha
     && terraform --version \
     && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory to Terraform
-WORKDIR /terraform
-
-# Initialize Terraform with environment variables
-RUN terraform init -input=false \
-    -backend-config="bucket=${TF_STATE_BUCKET_NAME}" \
-    -backend-config="key=${TF_STATE_BUCKET_KEY}" \
-    -backend-config="region=${AWS_REGION}" \
-    -backend-config="encrypt=true" \
-    -backend-config="dynamodb_table=${TF_STATE_DYNAMODB_TABLE}"
-
 # Set the working directory in the container
 WORKDIR /app
 
@@ -46,8 +35,12 @@ RUN npm install
 COPY server.js ./
 COPY build ./build
 
+# Copy the entrypoint script into the container
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # Expose the port on which the application runs
 EXPOSE 3000
 
-# Command to run the server
-CMD ["node", "server.js"]
+# Run commands on container initialization
+ENTRYPOINT ["/entrypoint.sh"]
